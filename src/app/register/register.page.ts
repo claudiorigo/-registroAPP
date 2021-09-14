@@ -40,7 +40,10 @@ export class RegisterPage implements OnInit {
       nombre: fm.nombre,
       password: fm.password
     }
+
     localStorage.setItem('usuario',JSON.stringify(usuario));
+    localStorage.setItem('ingresado','true');
+    this.navCtrl.navigateRoot('menu/inicio');
   }
 
 }
