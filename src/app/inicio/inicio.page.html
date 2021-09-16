@@ -8,5 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-item color="medium">
+    <ion-label>
+      Bienvenido Usuario {{dato}}
+    </ion-label>
+  </ion-item>
   <app-card-entrada [entrada]="entradaActual" (eventoGuardar)="guardar($event)"></app-card-entrada>
 </ion-content>

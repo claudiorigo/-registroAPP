@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item *ngFor="let entrada of entradas" (click)="irDetalle(entrada)">
       <ion-label>
-        <h2>{{entrada.fecha}}</h2>
+        <h2>{{entrada.fechaTexto}}</h2>
         <p>{{entrada.texto}}</p>
       </ion-label>
     </ion-item>

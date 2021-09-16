@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-card-entrada',
@@ -7,10 +9,12 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CardEntradaComponent implements OnInit {
 
+
   @Input() entrada:{
     fecha: string,
     fechaTexto: string,
     texto: string
+
   };
 
   @Input() soloLectura: boolean = false;
@@ -19,18 +23,24 @@ export class CardEntradaComponent implements OnInit {
     fecha: string,
     fechaTexto: string,
     texto: string
+
   }> = new EventEmitter<{
     fecha: string,
     fechaTexto: string,
     texto: string
+
   }>();
 
-  constructor() { }
+
+  constructor(public toastController: ToastController,) {
+
+  }
 
   ngOnInit() {}
 
   guardar(){
     this.eventoGuardar.emit(this.entrada);
   }
+
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
+import { Router, NavigationExtras } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
@@ -8,11 +9,13 @@ import { AlertController, NavController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  dato: string = "";
   formularioRegistro: FormGroup;
 
   constructor(public fb: FormBuilder,
     public alertController: AlertController,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public router: Router) {
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required),
@@ -43,7 +46,12 @@ export class RegisterPage implements OnInit {
 
     localStorage.setItem('usuario',JSON.stringify(usuario));
     localStorage.setItem('ingresado','true');
-    this.navCtrl.navigateRoot('menu/inicio');
+    this.dato = usuario.nombre;
+    let navigationExtras: NavigationExtras = {
+      state: {dato: this.dato}
+    };
+    this.router.navigate(['menu/inicio'],navigationExtras);
+    //this.navCtrl.navigateRoot('menu/inicio');
   }
 
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-inicio',
@@ -9,6 +12,8 @@ import * as moment from 'moment';
 })
 export class InicioPage implements OnInit {
 
+
+  dato : any;
   fecha: string;
 
   entradas: Array<{
@@ -23,7 +28,18 @@ export class InicioPage implements OnInit {
     texto: string
   };
 
-  constructor(public toastController: ToastController) {
+  constructor(public toastController: ToastController,public router: Router,
+    public activeroute: ActivatedRoute
+    ){
+
+      this.activeroute.queryParams.subscribe(params =>{
+        if (this.router.getCurrentNavigation().extras.state) {
+          this.dato = this.router.getCurrentNavigation().extras.state.dato;
+        }
+      });
+
+
+
     moment.locale('es-mx');
     this.fecha = moment().format();
     this.cargarEntradas();
@@ -32,9 +48,11 @@ export class InicioPage implements OnInit {
   ngOnInit() {
   }
 
-  cargarEntradas(){
-    var fecha = moment(this.fecha).format('MM-DD-YY');
 
+
+  cargarEntradas(){
+
+    var fecha = moment(this.fecha).format('MM-DD-YY');
     this.entradas = JSON.parse(localStorage.getItem('entradas'));
     if(this.entradas){
       var entradaActual = this.entradas.find((elemento)=>{
@@ -61,6 +79,8 @@ export class InicioPage implements OnInit {
       fecha: fecha,
       texto: ''
     }
+
+
   }
 
   async guardar(entradaActual: {
@@ -93,7 +113,7 @@ export class InicioPage implements OnInit {
     toast.present();
   }
 
-  guardarItem(entrada:{fecha: string,fechaTexto: string,texto: string }){
+  guardarItem(entrada:{fecha: string,fechaTexto: string,texto: string}){
     this.entradas.push(entrada);
     localStorage.setItem('entradas',JSON.stringify(this.entradas));
   }

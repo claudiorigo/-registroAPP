@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-entradas',
@@ -7,14 +8,15 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./entradas.page.scss'],
 })
 export class EntradasPage implements OnInit {
-
+  dato: string = "";
   entradas: Array<{
     fecha: string,
     fechaTexto: string,
     texto: string
   }>
 
-  constructor(private router: Router) {
+  constructor(private router: Router
+    ) {
     this.cargarEntradas();
   }
 
@@ -22,6 +24,7 @@ export class EntradasPage implements OnInit {
   }
 
   cargarEntradas(){
+
     this.entradas = JSON.parse(localStorage.getItem('entradas'));
     if(!this.entradas)return;
     this.entradas.sort((item1,item2)=>{
