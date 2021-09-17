@@ -13,5 +13,31 @@
       Bienvenido Usuario {{dato}}
     </ion-label>
   </ion-item>
-  <app-card-entrada [entrada]="entradaActual" (eventoGuardar)="guardar($event)"></app-card-entrada>
+  <!--<app-card-entrada [entrada]="entradaActual" (eventoGuardar)="guardar($event)"></app-card-entrada>-->
+
+  <ion-card *ngIf="entradaActual">
+    <ion-card-content>
+      <p id="fechaTexto">{{entradaActual.fechaTexto}} </p>
+      <!--<p>{{entradaActual.texto}}</p>-->
+      <ion-textarea row="5" [(ngModel)]="entradaActual.texto" [disabled]="soloLectura">
+
+      </ion-textarea>
+    </ion-card-content>
+    <ion-button expand="block" (click)="guardar(entradaActual)" *ngIf="!soloLectura">
+      Guardar
+    </ion-button>
+    <!-- LISTA -->
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-avatar>
+          <ion-img [src]="user.imageURL"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          {{user.user}}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <!-- /LISTA -->
+  </ion-card>
+
 </ion-content>

@@ -11,7 +11,6 @@ import { AlertController, NavController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   dato: string = "";
-  nombre: string;
   formularioLogin: FormGroup;
 
   constructor(public fb: FormBuilder,

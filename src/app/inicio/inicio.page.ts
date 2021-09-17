@@ -12,7 +12,6 @@ import * as moment from 'moment';
 })
 export class InicioPage implements OnInit {
 
-
   dato : any;
   fecha: string;
 
@@ -28,7 +27,8 @@ export class InicioPage implements OnInit {
     texto: string
   };
 
-  constructor(public toastController: ToastController,public router: Router,
+  constructor(public toastController: ToastController,
+    public router: Router,
     public activeroute: ActivatedRoute
     ){
 
@@ -39,7 +39,6 @@ export class InicioPage implements OnInit {
       });
 
 
-
     moment.locale('es-mx');
     this.fecha = moment().format();
     this.cargarEntradas();
@@ -47,8 +46,6 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
   }
-
-
 
   cargarEntradas(){
 
@@ -83,6 +80,7 @@ export class InicioPage implements OnInit {
 
   }
 
+  //METODO GUARDANDO DATOS EN LOCAL_STORAGE SET_ITEM
   async guardar(entradaActual: {
     fecha: string,
     fechaTexto: string,
@@ -107,7 +105,7 @@ export class InicioPage implements OnInit {
     }
 
     const toast = await this.toastController.create({
-      message: 'Datos guardados',
+      message: 'Datos guardados Correctamente',
       duration: 2000
     });
     toast.present();
@@ -117,5 +115,45 @@ export class InicioPage implements OnInit {
     this.entradas.push(entrada);
     localStorage.setItem('entradas',JSON.stringify(this.entradas));
   }
+
+  //LISTA TEMPORAL DE ALUMNOS
+  private users = [
+    {
+      id: '1',
+      user: 'Claudio Rigollet',
+      imageURL: '../../assets/user_01.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    },
+    {
+      id: '2',
+      user: 'Maria Pérez',
+      imageURL: '../../assets/user_02.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    },
+    {
+      id: '3',
+      user: 'Ayrton Vergara',
+      imageURL: '../../assets/user_03.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    },
+    {
+      id: '4',
+      user: 'Lorena Araya',
+      imageURL: '../../assets/user_04.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    },
+    {
+      id: '5',
+      user: 'Marcelo Olguin',
+      imageURL: '../../assets/user_05.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    },
+    {
+      id: '6',
+      user: 'Fernanda Gonzalez',
+      imageURL: '../../assets/user_06.png',
+      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
+    }
+  ]
 
 }
