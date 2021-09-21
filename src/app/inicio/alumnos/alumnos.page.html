@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+     <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu/inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{alumno.user}}</ion-title>
+    <ion-buttons slot="end" (click)="eliminarEntrada()">
+      <ion-button color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-img [src]="alumno.imageURL"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <h1 class="ion-text-center">{{alumno.user}}</h1>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-list *ngIf="alumno.comentarios && alumno.comentarios.length > 0; else noComments">
+          <ion-item *ngFor="let comentario of alumno.comentarios">
+            {{comentario}}
+          </ion-item>
+        </ion-list>
+
+        <ng-template #noComments>
+          <ion-text>
+            <p class="ion-text-center">No Existe Información</p>
+          </ion-text>
+        </ng-template>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

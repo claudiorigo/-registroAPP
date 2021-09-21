@@ -21,7 +21,6 @@ export class MenuPage implements OnInit {
       url: '/menu/entradas',
       icono: 'book'
     }
-
   ]
 
   constructor(public alertController: AlertController,
@@ -48,6 +47,7 @@ export class MenuPage implements OnInit {
           text: 'Si',
           handler: () => {
             localStorage.removeItem('ingresado');
+            localStorage.removeItem('token');
             this.navCtrl.navigateRoot('login');
           }
         }

@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   constructor(public fb: FormBuilder,
     public alertController: AlertController,
     public navCtrl: NavController,
-    public router: Router
+    private router: Router
     ) {
 
     this.formularioLogin = this.fb.group({

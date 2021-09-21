@@ -27,9 +27,6 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
     canActivate: [IngresadoGuard]
-  },  {
-    path: 'entradas-detalle',
-    loadChildren: () => import('./entradas-detalle/entradas-detalle.module').then( m => m.EntradasDetallePageModule)
   }
 
 

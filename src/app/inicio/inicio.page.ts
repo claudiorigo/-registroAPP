@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { InicioService } from './inicio.service'
 import * as moment from 'moment';
-
 
 
 @Component({
@@ -11,9 +11,10 @@ import * as moment from 'moment';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
-
+  alumnos = [];
   dato : any;
   fecha: string;
+  tokenUser: any;
 
   entradas: Array<{
     fecha: string,
@@ -28,35 +29,48 @@ export class InicioPage implements OnInit {
   };
 
   constructor(public toastController: ToastController,
-    public router: Router,
-    public activeroute: ActivatedRoute
-    ){
+    private router: Router,
+    private activeroute: ActivatedRoute,
+    private inicioService: InicioService){
 
-      this.activeroute.queryParams.subscribe(params =>{
-        if (this.router.getCurrentNavigation().extras.state) {
-          this.dato = this.router.getCurrentNavigation().extras.state.dato;
-        }
-      });
+    this.activeroute.queryParams.subscribe(params =>{
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.dato = this.router.getCurrentNavigation().extras.state.dato;
+        this.tokenUser = this.dato;
+        localStorage.setItem('tokenUser',this.tokenUser);
+      }
+    });
 
+    this.tokenUser = localStorage.getItem('tokenUser');
 
     moment.locale('es-mx');
     this.fecha = moment().format();
     this.cargarEntradas();
   }
-
+  //Desde InicioService
   ngOnInit() {
+    this.alumnos = this.inicioService.getAlumnos();
+  }
+
+  ionViewWillEnter(){
+    this.alumnos = this.inicioService.getAlumnos();
   }
 
   cargarEntradas(){
 
     var fecha = moment(this.fecha).format('MM-DD-YY');
     this.entradas = JSON.parse(localStorage.getItem('entradas'));
+
     if(this.entradas){
       var entradaActual = this.entradas.find((elemento)=>{
         return elemento.fecha == fecha;
       });
       if(entradaActual){
         this.entradaActual = entradaActual;
+        this.entradaActual.texto = '';
+
+        //Console.log entradaActual
+        //console.log(this.entradaActual);
       }else{
         this.inicializarNuevaEntrada();
       }
@@ -76,8 +90,6 @@ export class InicioPage implements OnInit {
       fecha: fecha,
       texto: ''
     }
-
-
   }
 
   //METODO GUARDANDO DATOS EN LOCAL_STORAGE SET_ITEM
@@ -86,19 +98,19 @@ export class InicioPage implements OnInit {
     fechaTexto: string,
     texto: string
   }){
-
     var fecha = moment(this.fecha).format('MM-DD-YY');
-
+    console.log(this.entradas);
     if(this.entradas){
       var item = this.entradas.find((elemento)=>{
         return elemento.fecha == fecha;
+
       });
       if(item){
         localStorage.setItem('entradas',JSON.stringify(this.entradas));
+        item.texto = '';
       }else{
         this.guardarItem(entradaActual);
       }
-
     }else{
       this.entradas = [];
       this.guardarItem(entradaActual);
@@ -117,43 +129,6 @@ export class InicioPage implements OnInit {
   }
 
   //LISTA TEMPORAL DE ALUMNOS
-  private users = [
-    {
-      id: '1',
-      user: 'Claudio Rigollet',
-      imageURL: '../../assets/user_01.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    },
-    {
-      id: '2',
-      user: 'Maria Pérez',
-      imageURL: '../../assets/user_02.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    },
-    {
-      id: '3',
-      user: 'Ayrton Vergara',
-      imageURL: '../../assets/user_03.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    },
-    {
-      id: '4',
-      user: 'Lorena Araya',
-      imageURL: '../../assets/user_04.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    },
-    {
-      id: '5',
-      user: 'Marcelo Olguin',
-      imageURL: '../../assets/user_05.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    },
-    {
-      id: '6',
-      user: 'Fernanda Gonzalez',
-      imageURL: '../../assets/user_06.png',
-      comentarios: ['Vespertino', 'Sección: MAT4140-001V']
-    }
-  ]
+
 
 }

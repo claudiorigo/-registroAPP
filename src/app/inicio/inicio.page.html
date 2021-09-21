@@ -10,7 +10,8 @@
 <ion-content>
   <ion-item color="medium">
     <ion-label>
-      Bienvenido Usuario {{dato}}
+      Bienvenido Usuario {{tokenUser}}
+
     </ion-label>
   </ion-item>
   <!--<app-card-entrada [entrada]="entradaActual" (eventoGuardar)="guardar($event)"></app-card-entrada>-->
@@ -18,22 +19,25 @@
   <ion-card *ngIf="entradaActual">
     <ion-card-content>
       <p id="fechaTexto">{{entradaActual.fechaTexto}} </p>
+      <p id="fechaTexto">{{entradaActual.dato}} </p>
       <!--<p>{{entradaActual.texto}}</p>-->
-      <ion-textarea row="5" [(ngModel)]="entradaActual.texto" [disabled]="soloLectura">
-
-      </ion-textarea>
+      <!-- Textarea in an item with a floating label -->
+      <ion-item>
+        <ion-label position="floating">Agregar Alumno</ion-label>
+        <ion-textarea row="5" [(ngModel)]="entradaActual.texto" [disabled]="soloLectura"></ion-textarea>
+      </ion-item>
     </ion-card-content>
     <ion-button expand="block" (click)="guardar(entradaActual)" *ngIf="!soloLectura">
       Guardar
     </ion-button>
     <!-- LISTA -->
     <ion-list>
-      <ion-item *ngFor="let user of users">
-        <ion-avatar>
-          <ion-img [src]="user.imageURL"></ion-img>
+      <ion-item *ngFor="let alumno of alumnos" [routerLink]="['alumnos'+alumno.id]">
+        <ion-avatar slot="start">
+          <ion-img [src]="alumno.imageURL"></ion-img>
         </ion-avatar>
         <ion-label>
-          {{user.user}}
+          {{alumno.user}}
         </ion-label>
       </ion-item>
     </ion-list>

@@ -45,7 +45,7 @@ export class EntradasPage implements OnInit {
       }
     }
 
-    this.router.navigate(['/entradas-detalle'],datosNavegacion);
+    this.router.navigate(['menu/entradas-detalle'],datosNavegacion);
   }
 
 }
