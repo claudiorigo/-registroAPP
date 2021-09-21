@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
+    loadChildren: () => import('./registro/register.module').then( m => m.RegisterPageModule),
     canActivate: [NoIngresadoGuard]
   },
   {
@@ -28,9 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
     canActivate: [IngresadoGuard]
   }
-
-
-
 
 ];
 
